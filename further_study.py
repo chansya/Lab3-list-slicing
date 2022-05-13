@@ -46,9 +46,13 @@ def custom_append(input_list, value):
         True
 
     """
-    input_list + [value]
+    # new_list = [None] * (len(input_list) + 1)
+    # for i in range(len(input_list)):
+    #     new_list[i] = input_list[i]
 
-    pass
+    # new_list[len(input_list)] = value
+    # input_list = new_list
+    input_list[len(input_list):len(input_list)+1] = [value]
 
 
 def custom_extend(input_list, second_list):
@@ -67,7 +71,7 @@ def custom_extend(input_list, second_list):
 
     """
     for item in second_list:
-        input_list += item
+        input_list += [item]
     pass
 
 
@@ -85,9 +89,10 @@ def custom_insert(input_list, index, value):
         True
 
     """
-    for input_list[i] in input_list:
-        if input_list[i] == index:
-        input_list[i+1] += value
+    # for input_list[i] in input_list:
+    #     if input_list[i] == index:
+    #         input_list[i+1] += value
+    input_list[index:index] = [value]
     pass
 
 
@@ -106,7 +111,10 @@ def custom_remove(input_list, value):
         True
 
     """
-
+    for i, item in enumerate(input_list):
+        if item == value:
+            del input_list[i]
+            break
     pass
 
 
@@ -125,8 +133,9 @@ def custom_pop(input_list):
         ['Jan', 'Feb']
 
     """
-
-    return None
+    last_item = input_list[-1]
+    del input_list[-1]
+    return last_item
 
 
 def custom_index(input_list, value):
@@ -141,8 +150,10 @@ def custom_index(input_list, value):
         1
 
     """
-
-    return 0
+    for i, item in enumerate(input_list):
+        if item == value:
+            return i
+            break
 
 
 def custom_count(input_list, value):
@@ -157,8 +168,11 @@ def custom_count(input_list, value):
         2
 
     """
-
-    return 0
+    count = 0
+    for item in input_list:
+        if item == value:
+            count += 1
+    return count
 
 
 def custom_reverse(input_list):
@@ -176,8 +190,19 @@ def custom_reverse(input_list):
         True
 
     """
+    # input_list[-1:0:-1]
+    length = 0
+    for i in input_list:
+        length += 1
+    mid_point = int(length/2)
 
-    pass
+    for i in range(mid_point):
+        num = input_list[i]
+        # num=0
+        input_list[i] = input_list[length-i-1]
+        # 0->27
+        input_list[length-i-1] = num
+        # 27-->0
 
 
 def custom_contains(input_list, value):
@@ -196,8 +221,10 @@ def custom_contains(input_list, value):
         True
 
     """
-
-    return None
+    for item in input_list:
+        if item == value:
+            return True
+    return False
 
 
 def custom_equality(some_list, another_list):
@@ -216,4 +243,8 @@ def custom_equality(some_list, another_list):
 
     """
 
-    return None
+    for i, item in enumerate(some_list):
+        if some_list[i] != another_list[i]:
+            return False
+
+    return True
